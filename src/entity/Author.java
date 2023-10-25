@@ -1,7 +1,6 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package entity;
 
@@ -11,16 +10,23 @@ import java.util.Objects;
  *
  * @author pupil
  */
-class Author {
+public class Author {
     private String firstname;
     private String lastname;
-    
-    public Author(){
-        
+
+    public Author() {
     }
 
     public Author(String firstname, String lastname) {
         this.firstname = firstname;
+        this.lastname = lastname;
+    }
+
+    public String getLastname() {
+        return lastname;
+    }
+
+    public void setLastname(String lastname) {
         this.lastname = lastname;
     }
 
@@ -32,19 +38,11 @@ class Author {
         this.firstname = firstname;
     }
 
-    public String getLastname() {
-        return lastname;
-    }
-
-    public void setLastname(String lastname) {
-        this.lastname = lastname;
-    }
-
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 41 * hash + Objects.hashCode(this.firstname);
-        hash = 41 * hash + Objects.hashCode(this.lastname);
+        hash = 17 * hash + Objects.hashCode(this.firstname);
+        hash = 17 * hash + Objects.hashCode(this.lastname);
         return hash;
     }
 
@@ -63,16 +61,17 @@ class Author {
         if (!Objects.equals(this.firstname, other.firstname)) {
             return false;
         }
-        if (!Objects.equals(this.lastname, other.lastname)) {
-            return false;
-        }
-        return true;
+        return Objects.equals(this.lastname, other.lastname);
     }
 
     @Override
     public String toString() {
-        return "Author{" + "firstname=" + firstname + ", lastname=" + lastname + '}';
+        StringBuilder sb = new StringBuilder();
+        sb.append("Author{");
+        sb.append("firstname=").append(firstname);
+        sb.append(", lastname=").append(lastname);
+        sb.append('}');
+        return sb.toString();
     }
-    
     
 }

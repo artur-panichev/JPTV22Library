@@ -1,24 +1,34 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package entity;
 
 import java.util.Objects;
 
-
+/**
+ *
+ * @author pupil
+ */
 public class Reader {
-    String firstname;
-    String lastname;
-    String phone;
+    private String firstname;
+    private String lastname;
+    private String phone;
 
     public Reader() {
     }
 
     public Reader(String firstname, String lastname, String phone) {
         this.firstname = firstname;
-        this.firstname = lastname;
+        this.lastname = lastname;
+        this.phone = phone;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
         this.phone = phone;
     }
 
@@ -38,20 +48,12 @@ public class Reader {
         this.lastname = lastname;
     }
 
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
-
     @Override
     public int hashCode() {
-        int hash = 3;
-        hash = 29 * hash + Objects.hashCode(this.firstname);
-        hash = 29 * hash + Objects.hashCode(this.lastname);
-        hash = 29 * hash + Objects.hashCode(this.phone);
+        int hash = 7;
+        hash = 47 * hash + Objects.hashCode(this.firstname);
+        hash = 47 * hash + Objects.hashCode(this.lastname);
+        hash = 47 * hash + Objects.hashCode(this.phone);
         return hash;
     }
 
@@ -73,15 +75,19 @@ public class Reader {
         if (!Objects.equals(this.lastname, other.lastname)) {
             return false;
         }
-        if (!Objects.equals(this.phone, other.phone)) {
-            return false;
-        }
-        return true;
+        return Objects.equals(this.phone, other.phone);
     }
 
     @Override
     public String toString() {
-        return "Reader{" + "firstname=" + firstname + ", lastname=" + lastname + ", phone=" + phone + '}';
+        StringBuilder sb = new StringBuilder();
+        sb.append("Reader{");
+        sb.append("firstname=").append(firstname);
+        sb.append(", lastname=").append(lastname);
+        sb.append(", phone=").append(phone);
+        sb.append('}');
+        return sb.toString();
     }
+    
     
 }
