@@ -23,18 +23,19 @@ public class ReaderManager {
     public Reader addReader() {
         System.out.println(" ----- Add new reader -----");
         Reader reader = new Reader();
-        System.out.println("Firstname: ");
+        System.out.print("Firstname: ");
         reader.setFirstname(scanner.nextLine());
-        System.out.println("Lastname: ");
+        System.out.print("Lastname: ");
         reader.setLastname(scanner.nextLine());
-        System.out.println("Phone: ");
+        System.out.print("Phone: ");
         reader.setPhone(scanner.nextLine());
         System.out.println("Added reader " + reader.toString());
         return reader;
     }
 
-    public void pirntListReaders(Reader[] readers) {
-        System.out.println("------ List books -------");
+    public int pirntListReaders(Reader[] readers) {
+        int count = 0;
+        System.out.println("List readers: ");
         for (int i = 0; i < readers.length; i++) {
             System.out.printf("%d. %s. %s. %s%n",
                     i+1,
@@ -42,8 +43,9 @@ public class ReaderManager {
                     readers[i].getLastname(),
                     readers[i].getPhone()
             );
-                   
+            count++;
         }
+        return count;
     }
     
     

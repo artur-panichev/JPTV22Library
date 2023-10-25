@@ -9,6 +9,7 @@ import entity.Author;
 import entity.Book;
 import java.util.Arrays;
 import java.util.Scanner;
+import tools.InputFromKeyboard;
 
 /**
  *
@@ -29,9 +30,9 @@ public class BookManager {
         System.out.print("Enter title: ");
         book.setTitle(scanner.nextLine());
         System.out.print("Enter published year: ");
-        book.setPublishedYear(scanner.nextInt()); scanner.nextLine();
+        book.setPublishedYear(InputFromKeyboard.inputNumberFromRange(1800, 2050));
         System.out.print("How many authors: ");
-        int countAuthors = scanner.nextInt(); scanner.nextLine();
+        int countAuthors = InputFromKeyboard.inputNumberFromRange(1, 5);
         for (int i = 0; i < countAuthors; i++) {
             System.out.printf("Author %d:%n",i+1);
             System.out.print("Enter firstname: ");
@@ -44,8 +45,9 @@ public class BookManager {
         return book;
     }
 
-    public void pirntListBooks(Book[] books) {
-        System.out.println("------ List books -------");
+    public int pirntListBooks(Book[] books) {
+        int count = 0;
+        System.out.println("List books: ");
         for (int i = 0; i < books.length; i++) {
             System.out.printf("%d. %s. %d. %s%n",
                     i+1,
@@ -53,7 +55,9 @@ public class BookManager {
                     books[i].getPublishedYear(),
                     Arrays.toString(books[i].getAuthors())
             );
+            count++;
         }
+        return count;
     }
     
 }
