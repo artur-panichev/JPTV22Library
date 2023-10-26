@@ -15,7 +15,8 @@ public class InputFromKeyboard {
      * @param max
      * @return  number;    
      */
-    public static int inputNumberFromRange(int min, int max) {
+    public static int inputNumberFromRange(Integer min, Integer max) {
+        
         Scanner scanner = new Scanner(System.in);
         int number = min - 1;
         boolean isNumber = true;
@@ -28,12 +29,22 @@ public class InputFromKeyboard {
                 scanner.nextLine();
                 isNumber = false;
             }
-            if((number >= min && number <= max) && isNumber){
-                repeat = false;
+            if(max == null ){
+               if((number >= min) && isNumber){
+                repeat = false; 
+               }else{
+                    System.out.printf("Enter number from next range: %d .. %d: ",min,max);
+                    isNumber = true;
+                    repeat = true;
+                }
             }else{
-                System.out.printf("Enter number from next range: %d .. %d: ",min,max);
-                isNumber = true;
-                repeat = true;
+                if((number >= min && number <= max) && isNumber){
+                    repeat = false;
+                }else{
+                    System.out.printf("Enter number from next range: %d .. %d: ",min,max);
+                    isNumber = true;
+                    repeat = true;
+                }
             }
         }while(repeat);
         return number;

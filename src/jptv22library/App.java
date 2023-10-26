@@ -13,6 +13,7 @@ import java.util.Arrays;
 import managers.BookManager;
 import managers.ReaderManager;
 import java.util.Scanner;
+import managers.SaveManager;
 import tools.InputFromKeyboard;
 
 /**
@@ -27,10 +28,12 @@ public class App {
     private final BookManager bookManager;
     private final ReaderManager readerManager;
     private HistoryManager historyManager;
+    private SaveManager saveManager;
     
     public App() {
         this.scanner = new Scanner(System.in);
-        this.books = new Book[0];
+        this.saveManager = new SaveManager();
+        this.books = saveManager.loadBooks();//инициализация поля books и сюда считаем инфу из файла
         this.readers = new Reader[0];
         this.histories = new History[0];
         this.bookManager = new BookManager(scanner);
@@ -73,7 +76,10 @@ public class App {
                     readerManager.pirntListReaders(readers);
                     break;
                 case 5:
-                    addHistoryToHistories(historyManager.giveBookToReader(readers, books));
+                    History history = historyManager.giveBookToReader(readers, books);
+                    if(history != null){
+                        addHistoryToHistories(history);
+                    }
                     break;
                 case 6:
                     historyManager.returnBook(histories);
@@ -90,6 +96,7 @@ public class App {
     private void addBookToBooks(Book book) {
         this.books = Arrays.copyOf(this.books, this.books.length + 1);
         this.books[this.books.length - 1] = book;
+        saveManager.saveBooks(this.books);//save to file
     }
 
     private void addReaderToReaders(Reader reader) {

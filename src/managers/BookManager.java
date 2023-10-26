@@ -41,6 +41,9 @@ public class BookManager {
             String authorLastname = scanner.nextLine();
             book.addAuthor(new Author(authorFirstname, authorLastname));
         }
+        System.out.print("Enter quantity copy: ");
+        book.setQuantity(InputFromKeyboard.inputNumberFromRange(1, 10));
+        book.setCount(book.getQuantity());
         System.out.println("Added book: "+book.toString());
         return book;
     }
@@ -49,11 +52,12 @@ public class BookManager {
         int count = 0;
         System.out.println("List books: ");
         for (int i = 0; i < books.length; i++) {
-            System.out.printf("%d. %s. %d. %s%n",
+            System.out.printf("%d. %s. %d. %s. In stock: %d%n",
                     i+1,
                     books[i].getTitle(),
                     books[i].getPublishedYear(),
-                    Arrays.toString(books[i].getAuthors())
+                    Arrays.toString(books[i].getAuthors()),
+                    books[i].getCount()
             );
             count++;
         }

@@ -48,9 +48,14 @@ public class HistoryManager {
         int countBooksInList = bookManager.pirntListBooks(books);
         System.out.print("Enter number book: ");
         int bookNumber = InputFromKeyboard.inputNumberFromRange(1, countBooksInList);
-        history.setBook(books[bookNumber-1]);
-        
-        history.setGiveBookToReaderDate(new GregorianCalendar().getTime());
+        if(books[bookNumber-1].getCount() > 0){
+            history.setBook(books[bookNumber-1]);
+            books[bookNumber-1].setCount(books[bookNumber-1].getCount() - 1);
+            history.setGiveBookToReaderDate(new GregorianCalendar().getTime());
+        }else{
+            System.out.println("All books are read");
+            return null;
+        }
         return history;
     }
 
@@ -60,10 +65,16 @@ public class HistoryManager {
         if((countBooksInList = this.printListReadingBooks(histories))<1){
             System.out.println("Not books");
             return;
-        };
+        }
         System.out.print("Enter number book: ");
-        int historyNumber = InputFromKeyboard.inputNumberFromRange(1, countBooksInList);
-        histories[historyNumber-1].setReturnBook(new GregorianCalendar().getTime());
+        int historyNumber = InputFromKeyboard.inputNumberFromRange(1, null);
+        if(histories[historyNumber-1].getBook().getCount() < histories[historyNumber-1].getBook().getQuantity()){
+            histories[historyNumber-1].setReturnBook(new GregorianCalendar().getTime());
+            histories[historyNumber-1].getBook().setCount(histories[historyNumber-1].getBook().getCount()+1);
+            System.out.printf("Book \"%s\" returned%n",histories[historyNumber-1].getBook().getTitle());
+        }else{
+            System.out.println("All books are already in stock"); 
+        }
     }
 
     public  int printListReadingBooks(History[] histories) {
