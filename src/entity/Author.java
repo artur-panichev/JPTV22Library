@@ -1,6 +1,7 @@
 /*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
  */
 package entity;
 
@@ -41,8 +42,8 @@ public class Author {
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 17 * hash + Objects.hashCode(this.firstname);
-        hash = 17 * hash + Objects.hashCode(this.lastname);
+        hash = 31 * hash + Objects.hashCode(this.firstname);
+        hash = 31 * hash + Objects.hashCode(this.lastname);
         return hash;
     }
 
@@ -61,17 +62,18 @@ public class Author {
         if (!Objects.equals(this.firstname, other.firstname)) {
             return false;
         }
-        return Objects.equals(this.lastname, other.lastname);
+        if (!Objects.equals(this.lastname, other.lastname)) {
+            return false;
+        }
+        return true;
     }
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("Author{");
-        sb.append("firstname=").append(firstname);
-        sb.append(", lastname=").append(lastname);
-        sb.append('}');
-        return sb.toString();
+        return "Author{" 
+                + "firstname=" + firstname 
+                + ", lastname=" + lastname 
+                + '}';
     }
     
 }

@@ -1,12 +1,12 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package entity;
 
 import java.util.Arrays;
 import java.util.Objects;
-
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 
 /**
  *
@@ -16,23 +16,25 @@ public class Book {
     private String title;
     private int publishedYear;
     private Author[] authors = new Author[0];
+    private int quantity;
+    private int count;
 
     public Book() {
     }
 
-    public Book(String title, int publishedYear, Author[] authors) {
+    public Book(String title, int publishedYear, int quantity, int count) {
         this.title = title;
         this.publishedYear = publishedYear;
-        this.authors = authors;
+        this.quantity = quantity;
+        this.count = count;
     }
 
     public Author[] getAuthors() {
         return authors;
     }
 
-    public void addAuthor(Author author) {
-        this.authors = Arrays.copyOf(authors, authors.length+1);
-        this.authors[authors.length-1] = author;
+    public void setAuthors(Author[] authors) {
+        this.authors = authors;
     }
 
     public String getTitle() {
@@ -53,10 +55,10 @@ public class Book {
 
     @Override
     public int hashCode() {
-        int hash = 7;
-        hash = 19 * hash + Objects.hashCode(this.title);
-        hash = 19 * hash + this.publishedYear;
-        hash = 19 * hash + Arrays.deepHashCode(this.authors);
+        int hash = 3;
+        hash = 71 * hash + Objects.hashCode(this.title);
+        hash = 71 * hash + this.publishedYear;
+        hash = 71 * hash + Arrays.deepHashCode(this.authors);
         return hash;
     }
 
@@ -78,20 +80,47 @@ public class Book {
         if (!Objects.equals(this.title, other.title)) {
             return false;
         }
-        return Arrays.deepEquals(this.authors, other.authors);
+        if (!Arrays.deepEquals(this.authors, other.authors)) {
+            return false;
+        }
+        return true;
     }
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("Book{");
-        sb.append("title=").append(title);
-        sb.append(", publishedYear=").append(publishedYear);
-        sb.append(", authors=").append(Arrays.toString(authors));
-        sb.append('}');
-        return sb.toString();
+        return "Book{" 
+                + "title=" + title 
+                + ", publishedYear=" + publishedYear 
+                + ", authors=" + Arrays.toString(authors) 
+                + ", quantity=" + quantity
+                + ", count=" + count
+                + '}';
     }
-    
+
+    public void addAuthor(Author author) {
+        /*
+         * 1. создать копию athors с дополнительной пустой ячейкой
+         * 2. добавить в пустую ячейку ссылку на author полученый из параметра
+         */
+        this.authors = Arrays.copyOf(this.authors, this.authors.length + 1);
+        this.authors[this.authors.length-1] = author;
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
+
+    public int getCount() {
+        return count;
+    }
+
+    public void setCount(int count) {
+        this.count = count;
+    }
     
     
 }

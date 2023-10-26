@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package tools;
 
 import java.util.Scanner;
@@ -12,27 +7,37 @@ import java.util.Scanner;
  * @author pupil
  */
 public class InputFromKeyboard {
-    public static int inputNumberFromRange(int min, int max){
+    /**
+     * Tools for input numbers  from keyboard
+     * Repeats input if the entered number is not a number 
+     * or a number is out of range 
+     * @param min
+     * @param max
+     * @return  number;
+     */
+    public static int inputNumberFromRange(Integer min, Integer max) {
         Scanner scanner = new Scanner(System.in);
-        int number = min -1;
+        int number = min - 1;
         boolean isNumber = true;
         boolean repeat;
         do{
-            try{
+            try {
                 number = scanner.nextInt();
                 scanner.nextLine();
-            } catch(Exception e){
+            } catch (Exception e) {
                 scanner.nextLine();
                 isNumber = false;
             }
             if((number >= min && number <= max) && isNumber){
                 repeat = false;
-            } else{
-                System.out.printf("Enter number from next range: %d .. %d: ", min, max);
+            }else{
+                System.out.printf("Enter number from next range: %d .. %d: ",min,max);
                 isNumber = true;
                 repeat = true;
             }
         }while(repeat);
         return number;
     }
+    
+    
 }

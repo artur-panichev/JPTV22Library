@@ -1,101 +1,110 @@
 /*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
  */
 package jptv22library;
 
-import managers.HistoryManager;
-import managers.ReaderManager;
-import entity.Book;
 import entity.History;
+import managers.HistoryManager;
+import entity.Book;
 import entity.Reader;
 import java.util.Arrays;
-import java.util.Scanner;
 import managers.BookManager;
+import managers.ReaderManager;
+import java.util.Scanner;
 import tools.InputFromKeyboard;
 
 /**
  *
  * @author pupil
  */
-class App {
+public class App {
+    private final Scanner scanner;
     private Book[] books;
     private Reader[] readers;
     private History[] histories;
-    private Scanner scanner;
-    private ReaderManager readerManager;
-    private BookManager bookManager;
+    private final BookManager bookManager;
+    private final ReaderManager readerManager;
     private HistoryManager historyManager;
-
+    
     public App() {
+        this.scanner = new Scanner(System.in);
         this.books = new Book[0];
         this.readers = new Reader[0];
         this.histories = new History[0];
-        this.scanner = new Scanner(System.in);
-        this.readerManager = new ReaderManager(scanner);
         this.bookManager = new BookManager(scanner);
-        this.historyManager = new HistoryManager(scanner,bookManager, readerManager);
+        this.readerManager = new ReaderManager(scanner);
+        this.historyManager = new HistoryManager(scanner);
     }
+    
+    
+    
     
     void run() {
         boolean repeat = true;
+        System.out.println("------ Library ------");
         do{
-            System.out.println("Select task: ");
+            System.out.println("List tasks:");
             System.out.println("0. Exit");
-            System.out.println("1. Add new Book");
-            System.out.println("2. Add new Reader");
-            System.out.println("3. Give out a book to read");
+            System.out.println("1. Add new book");
+            System.out.println("2. Add new reader");
+            System.out.println("3. Print list books");
             System.out.println("4. Print list readers");
-            System.out.println("5. Print list books");
+            System.out.println("5. Give the book to the reader");
             System.out.println("6. Return book");
-            System.out.println("7. List reading books");
-            System.out.print("Set task: ");
-            int task = InputFromKeyboard.inputNumberFromRange(0, 7);
+            System.out.println("7. Print list readed books");
+            System.out.print("Enter number task: ");
+            int task = InputFromKeyboard.inputNumberFromRange(0,7);
             switch (task) {
                 case 0:
                     repeat = false;
                     break;
                 case 1:
-                    addBookToArray(bookManager.addBook());
+                    addBookToBooks(bookManager.addBook());
                     break;
                 case 2:
-                    addReaderToArray(readerManager.addReader());
+                    addReaderToReaders(readerManager.addReader());
                     break;
                 case 3:
-                    addHistoryToArray(historyManager.giveOutBook(books, readers));
+                    bookManager.pirntListBooks(books);
                     break;
                 case 4:
-                    readerManager.printListReaders(readers);
+                    readerManager.pirntListReaders(readers);
                     break;
                 case 5:
-                    bookManager.printListBooks(books);
+                    History history = historyManager.giveBookToReader(readers, books);
+                    if(history != null){
+                        addHistoryToHistories(history);
+                    }
                     break;
                 case 6:
                     historyManager.returnBook(histories);
                     break;
                 case 7:
-                    bookManager.listReadingBooks(histories);
+                    historyManager.printListReadingBooks(histories);
                     break;
                 default:
-                    System.out.println("Select number from list!");
+                    System.out.println("Select number from list tasks!");
             }
-            System.out.println("-----------------------------------------------------");
         }while(repeat);
     }
 
-    private void addBookToArray(Book book) {
-        this.books = Arrays.copyOf(books, books.length + 1);
-        this.books[books.length - 1] = book;
+    private void addBookToBooks(Book book) {
+        this.books = Arrays.copyOf(this.books, this.books.length + 1);
+        this.books[this.books.length - 1] = book;
     }
 
-    private void addReaderToArray(Reader reader) {
-        this.readers = Arrays.copyOf(readers, readers.length + 1);
-        this.readers[readers.length - 1] = reader;
+    private void addReaderToReaders(Reader reader) {
+        this.readers = Arrays.copyOf(this.readers, this.readers.length + 1);
+        this.readers[this.readers.length - 1] = reader;
+        
+    }
+    private void addHistoryToHistories(History history) {
+        this.histories = Arrays.copyOf(this.histories, this.histories.length + 1);
+        this.histories[this.histories.length - 1] = history;
     }
 
-    private void addHistoryToArray(History history) {
-        this.histories = Arrays.copyOf(histories, histories.length + 1);
-        this.histories[histories.length - 1] = history;
-    }
+    
     
 }

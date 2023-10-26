@@ -7,68 +7,61 @@ package managers;
 
 import entity.Author;
 import entity.Book;
-import entity.History;
 import java.util.Arrays;
 import java.util.Scanner;
+import tools.InputFromKeyboard;
 
 /**
  *
  * @author pupil
  */
 public class BookManager {
-    private Scanner scanner;
+
+    private final Scanner scanner;
 
     public BookManager(Scanner scanner) {
         this.scanner = scanner;
     }
+
     public Book addBook() {
-        Book book = new Book();
+        System.out.println("----- Add new book -----");
+        Book book;
+        book = new Book();
         System.out.print("Enter title: ");
         book.setTitle(scanner.nextLine());
         System.out.print("Enter published year: ");
-        book.setPublishedYear(scanner.nextInt());
-        scanner.nextLine();
-        System.out.println("How many authors: ");
-        int countAuthors = scanner.nextInt(); scanner.nextLine();
+        book.setPublishedYear(InputFromKeyboard.inputNumberFromRange(1800, 2050));
+        System.out.print("How many authors: ");
+        int countAuthors = InputFromKeyboard.inputNumberFromRange(1, 5);
         for (int i = 0; i < countAuthors; i++) {
-            System.out.println(i+1+" author:");
-            System.out.print("Author firstname: ");
+            System.out.printf("Author %d:%n",i+1);
+            System.out.print("Enter firstname: ");
             String authorFirstname = scanner.nextLine();
-            System.out.print("Author lastname: ");
+            System.out.print("Enter lastname: ");
             String authorLastname = scanner.nextLine();
             book.addAuthor(new Author(authorFirstname, authorLastname));
         }
-        System.out.println("Added book: ");
-        System.out.println(book.toString());
+        System.out.print("Enter quantity: ");
+        book.setQuantity(InputFromKeyboard.inputNumberFromRange(1, 10));
+        book.setCount(book.getQuantity());
+        System.out.println("Added book: "+book.toString());
         return book;
     }
 
-    public void printListBooks(Book[] books) {
-        System.out.println("------- List books --------");
+    public int pirntListBooks(Book[] books) {
+        int count = 0;
+        System.out.println("List books: ");
         for (int i = 0; i < books.length; i++) {
-            StringBuilder sbAuthorsBook = new StringBuilder();
-            for (int j = 0; j < books[i].getAuthors().length; j++) {
-                Author author = books[i].getAuthors()[j];
-                sbAuthorsBook.append(author.getFirstname());
-                sbAuthorsBook.append(" ");
-                sbAuthorsBook.append(author.getLastname()+". ");
-            }
-            
-            System.out.printf("%d. %s. %d. %s%n",
+            System.out.printf("%d. %s. %d. %s. In stock: %d%n",
                     i+1,
                     books[i].getTitle(),
                     books[i].getPublishedYear(),
-                    sbAuthorsBook.toString());
+                    Arrays.toString(books[i].getAuthors()),
+                    books[i].getCount()
+            );
+            count++;
         }
+        return count;
     }
-
-    public void listReadingBooks(History[] histories) {
-       System.out.println("------- List reading books --------"); 
-        for (int i = 0; i < histories.length; i++) {
-            
-            
-        }
-    }
-    
     
 }
