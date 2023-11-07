@@ -9,6 +9,7 @@ import entity.Book;
 import entity.History;
 import entity.Reader;
 import java.util.GregorianCalendar;
+import java.util.List;
 import java.util.Scanner;
 import tools.InputFromKeyboard;
 
@@ -29,7 +30,7 @@ public class HistoryManager {
         
     }
 
-    public History giveBookToReader(Reader[] readers, Book[] books) {
+    public History giveBookToReader(Reader[] readers, List<Book> books) {
         System.out.println("------------- Give the book to the reader ----------------");
         History history = new History();
         /*
@@ -48,9 +49,9 @@ public class HistoryManager {
         int countBooksInList = bookManager.pirntListBooks(books);
         System.out.print("Enter number book: ");
         int bookNumber = InputFromKeyboard.inputNumberFromRange(1, countBooksInList);
-        if(books[bookNumber-1].getCount() > 0){
-            history.setBook(books[bookNumber-1]);
-            books[bookNumber-1].setCount(books[bookNumber-1].getCount() - 1);
+        if(books.get(bookNumber-1).getCount() > 0){
+            history.setBook(books.get(bookNumber-1));
+            books.get(bookNumber-1).setCount(books.get(bookNumber-1).getCount()-1);
             history.setGiveBookToReaderDate(new GregorianCalendar().getTime());
         }else{
             System.out.println("All books are read");

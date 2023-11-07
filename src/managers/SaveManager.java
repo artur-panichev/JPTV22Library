@@ -14,6 +14,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -21,7 +23,7 @@ import java.io.ObjectOutputStream;
  * @author Melnikov
  */
 public class SaveManager {
-    public void saveBooks(Book[] books){
+    public void saveBooks(List<Book> books){
         FileOutputStream fos;
         ObjectOutputStream oos;
         try {
@@ -36,14 +38,14 @@ public class SaveManager {
         }
         
     }
-    public Book[] loadBooks(){
-        Book[] books = new Book[0];
+    public List<Book> loadBooks(){
+        List<Book> books = new ArrayList<>();
         FileInputStream fis;
         ObjectInputStream ois;
         try {
             fis = new FileInputStream("books");
             ois = new ObjectInputStream(fis);
-            books = (Book[]) ois.readObject();
+            books = (List<Book>) ois.readObject();
         } catch (FileNotFoundException ex) {
             System.out.println("File not fount");
         } catch (IOException ex) {

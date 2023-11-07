@@ -9,7 +9,9 @@ import entity.History;
 import managers.HistoryManager;
 import entity.Book;
 import entity.Reader;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import managers.BookManager;
 import managers.ReaderManager;
 import java.util.Scanner;
@@ -22,7 +24,8 @@ import tools.InputFromKeyboard;
  */
 public class App {
     private final Scanner scanner;
-    private Book[] books;
+    //private Book[] books;
+    private List<Book> books;
     private Reader[] readers;
     private History[] histories;
     private final BookManager bookManager;
@@ -33,7 +36,8 @@ public class App {
     public App() {
         this.scanner = new Scanner(System.in);
         this.saveManager = new SaveManager();
-        this.books = saveManager.loadBooks();//инициализация поля books и сюда считаем инфу из файла
+        //this.books = saveManager.loadBooks();//инициализация поля books и сюда считаем инфу из файла
+        this.books = saveManager.loadBooks();
         this.readers = saveManager.loadReaders();
         this.histories = saveManager.loadHistories();
         this.bookManager = new BookManager(scanner);
@@ -64,7 +68,8 @@ public class App {
                     repeat = false;
                     break;
                 case 1:
-                    addBookToBooks(bookManager.addBook());
+                    books.add(bookManager.addBook());
+                    saveManager.saveBooks(this.books);//save to file
                     break;
                 case 2:
                     addReaderToReaders(readerManager.addReader());
@@ -94,11 +99,11 @@ public class App {
         }while(repeat);
     }
 
-    private void addBookToBooks(Book book) {
-        this.books = Arrays.copyOf(this.books, this.books.length + 1);
-        this.books[this.books.length - 1] = book;
-        saveManager.saveBooks(this.books);//save to file
-    }
+//    private void addBookToBooks(Book book) {
+//        this.books = Arrays.copyOf(this.books, this.books.length + 1);
+//        this.books[this.books.length - 1] = book;
+//        saveManager.saveBooks(this.books);//save to file
+//    }
 
     private void addReaderToReaders(Reader reader) {
         this.readers = Arrays.copyOf(this.readers, this.readers.length + 1);
