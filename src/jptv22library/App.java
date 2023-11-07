@@ -13,6 +13,7 @@ import java.util.Arrays;
 import managers.BookManager;
 import managers.ReaderManager;
 import java.util.Scanner;
+import managers.SaveManager;
 import tools.InputFromKeyboard;
 
 /**
@@ -27,12 +28,14 @@ public class App {
     private final BookManager bookManager;
     private final ReaderManager readerManager;
     private HistoryManager historyManager;
+    private SaveManager saveManager;
     
     public App() {
         this.scanner = new Scanner(System.in);
-        this.books = new Book[0];
-        this.readers = new Reader[0];
-        this.histories = new History[0];
+        this.saveManager = new SaveManager();
+        this.books = saveManager.loadBooks();//инициализация поля books и сюда считаем инфу из файла
+        this.readers = saveManager.loadReaders();
+        this.histories = saveManager.loadHistories();
         this.bookManager = new BookManager(scanner);
         this.readerManager = new ReaderManager(scanner);
         this.historyManager = new HistoryManager(scanner);
@@ -77,9 +80,11 @@ public class App {
                     if(history != null){
                         addHistoryToHistories(history);
                     }
+                    saveManager.saveHistories(histories);
                     break;
                 case 6:
                     historyManager.returnBook(histories);
+                    saveManager.saveHistories(histories);
                     break;
                 case 7:
                     historyManager.printListReadingBooks(histories);
@@ -93,11 +98,13 @@ public class App {
     private void addBookToBooks(Book book) {
         this.books = Arrays.copyOf(this.books, this.books.length + 1);
         this.books[this.books.length - 1] = book;
+        saveManager.saveBooks(this.books);//save to file
     }
 
     private void addReaderToReaders(Reader reader) {
         this.readers = Arrays.copyOf(this.readers, this.readers.length + 1);
         this.readers[this.readers.length - 1] = reader;
+        saveManager.saveReaders(this.readers);
         
     }
     private void addHistoryToHistories(History history) {

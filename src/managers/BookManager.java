@@ -41,7 +41,7 @@ public class BookManager {
             String authorLastname = scanner.nextLine();
             book.addAuthor(new Author(authorFirstname, authorLastname));
         }
-        System.out.print("Enter quantity: ");
+        System.out.print("Enter quantity copy: ");
         book.setQuantity(InputFromKeyboard.inputNumberFromRange(1, 10));
         book.setCount(book.getQuantity());
         System.out.println("Added book: "+book.toString());
