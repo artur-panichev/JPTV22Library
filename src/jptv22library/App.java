@@ -9,8 +9,6 @@ import entity.History;
 import managers.HistoryManager;
 import entity.Book;
 import entity.Reader;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import managers.BookManager;
 import managers.ReaderManager;
@@ -24,19 +22,17 @@ import tools.InputFromKeyboard;
  */
 public class App {
     private final Scanner scanner;
-    //private Book[] books;
     private List<Book> books;
-    private Reader[] readers;
-    private History[] histories;
+    private List<Reader> readers;
+    private List<History> histories;
     private final BookManager bookManager;
     private final ReaderManager readerManager;
-    private HistoryManager historyManager;
-    private SaveManager saveManager;
+    private final HistoryManager historyManager;
+    private final SaveManager saveManager;
     
     public App() {
         this.scanner = new Scanner(System.in);
         this.saveManager = new SaveManager();
-        //this.books = saveManager.loadBooks();//инициализация поля books и сюда считаем инфу из файла
         this.books = saveManager.loadBooks();
         this.readers = saveManager.loadReaders();
         this.histories = saveManager.loadHistories();
@@ -44,9 +40,6 @@ public class App {
         this.readerManager = new ReaderManager(scanner);
         this.historyManager = new HistoryManager(scanner);
     }
-    
-    
-    
     
     void run() {
         boolean repeat = true;
@@ -72,7 +65,8 @@ public class App {
                     saveManager.saveBooks(this.books);//save to file
                     break;
                 case 2:
-                    addReaderToReaders(readerManager.addReader());
+                    readers.add(readerManager.addReader());
+                    saveManager.saveReaders(readers);
                     break;
                 case 3:
                     bookManager.pirntListBooks(books);
@@ -83,7 +77,8 @@ public class App {
                 case 5:
                     History history = historyManager.giveBookToReader(readers, books);
                     if(history != null){
-                        addHistoryToHistories(history);
+                        histories.add(history);
+                        saveManager.saveHistories(histories);
                     }
                     break;
                 case 6:
@@ -99,23 +94,6 @@ public class App {
         }while(repeat);
     }
 
-//    private void addBookToBooks(Book book) {
-//        this.books = Arrays.copyOf(this.books, this.books.length + 1);
-//        this.books[this.books.length - 1] = book;
-//        saveManager.saveBooks(this.books);//save to file
-//    }
-
-    private void addReaderToReaders(Reader reader) {
-        this.readers = Arrays.copyOf(this.readers, this.readers.length + 1);
-        this.readers[this.readers.length - 1] = reader;
-        saveManager.saveReaders(readers);
-    }
-    private void addHistoryToHistories(History history) {
-        this.histories = Arrays.copyOf(this.histories, this.histories.length + 1);
-        this.histories[this.histories.length - 1] = history;
-        saveManager.saveHistories(histories);
-    }
-
-    
+   
     
 }
