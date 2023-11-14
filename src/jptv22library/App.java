@@ -91,7 +91,9 @@ public class App {
                 default:
                     System.out.println("Select number from list tasks!");
             }
+            System.out.println("-----------------------------");
         }while(repeat);
+        System.out.println("Exit. By-by!");
     }
 
    
