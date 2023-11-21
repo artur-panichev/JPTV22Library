@@ -40,7 +40,7 @@ public class BookManager {
             String authorFirstname = scanner.nextLine();
             System.out.print("Enter lastname: ");
             String authorLastname = scanner.nextLine();
-            book.addAuthor(new Author(authorFirstname, authorLastname));
+            book.getAuthors().add(new Author(authorFirstname, authorLastname));
         }
         System.out.print("Enter quantity copy: ");
         book.setQuantity(InputFromKeyboard.inputNumberFromRange(1, 10));
@@ -57,7 +57,7 @@ public class BookManager {
                     i+1,
                     books.get(i).getTitle(),
                     books.get(i).getPublishedYear(),
-                    Arrays.toString(books.get(i).getAuthors()),
+                    Arrays.toString(books.get(i).getAuthors().toArray()),
                     books.get(i).getCount()
             );
             count++;
