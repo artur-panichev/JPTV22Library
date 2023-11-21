@@ -54,8 +54,15 @@ public class App {
             System.out.println("5. Give the book to the reader");
             System.out.println("6. Return book");
             System.out.println("7. Print list readed books");
+            System.out.println("8. Add a copy of an existing book in the library");
+            
             System.out.print("Enter number task: ");
-            int task = InputFromKeyboard.inputNumberFromRange(0,7);
+            int task = InputFromKeyboard.inputNumberFromRange(0,8);
+            System.out.printf("Selected task %d, continue? (y/n): ",task);
+            String continueRun = InputFromKeyboard.inputSymbolYesOrNo();
+            if(continueRun.equals("n")){
+                continue;
+            }
             switch (task) {
                 case 0:
                     repeat = false;
@@ -87,6 +94,10 @@ public class App {
                     break;
                 case 7:
                     historyManager.printListReadingBooks(histories);
+                    break;
+                case 8:
+                    bookManager.addCopyOfExistingBookInLibrary(books);
+                    saveManager.saveBooks(books);
                     break;
                 default:
                     System.out.println("Select number from list tasks!");
