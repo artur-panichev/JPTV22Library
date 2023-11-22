@@ -20,7 +20,7 @@ import java.util.List;
 
 /**
  *
- * @author Melnikov
+ * @author pupil
  */
 public class SaveManager {
     public void saveBooks(List<Book> books){

@@ -18,7 +18,7 @@ import javax.persistence.OneToMany;
 
 /**
  *
- * @author Melnikov
+ * @author pupil
  */
 @Entity
 public class Book implements Serializable{

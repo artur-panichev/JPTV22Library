@@ -14,7 +14,7 @@ import javax.persistence.Id;
 
 /**
  *
- * @author Melnikov
+ * @author pupil
  */
 @Entity
 public class Reader implements Serializable{

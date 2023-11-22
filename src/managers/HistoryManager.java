@@ -15,7 +15,7 @@ import tools.InputFromKeyboard;
 
 /**
  *
- * @author Melnikov
+ * @author pupil
  */
 public class HistoryManager {
 

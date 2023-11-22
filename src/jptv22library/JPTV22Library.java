@@ -7,7 +7,7 @@ package jptv22library;
 
 /**
  *
- * @author Melnikov
+ * @author pupil
  */
 public class JPTV22Library {
 
